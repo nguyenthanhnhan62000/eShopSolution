@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolutionWebApp", "eShopSolutionWebApp\eShopSolutionWebApp.csproj", "{B5265F45-B593-4C29-9D2D-B11CDDD5E5FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.data_", "eShopSolution.data_\eShopSolution.data_.csproj", "{3B3D0BC5-6610-412B-AECD-671F1DDDDD43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.data", "eShopSolution.data_\eShopSolution.data.csproj", "{3B3D0BC5-6610-412B-AECD-671F1DDDDD43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.Application_", "eShopSolution.Application_\eShopSolution.Application_.csproj", "{98731A2F-835D-4065-B671-CE0720FB62E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Application_", "eShopSolution.Application_\eShopSolution.Application_.csproj", "{98731A2F-835D-4065-B671-CE0720FB62E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
