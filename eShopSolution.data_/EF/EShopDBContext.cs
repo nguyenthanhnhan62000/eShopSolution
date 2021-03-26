@@ -1,4 +1,5 @@
-﻿using eShopSolution.data_.Configuration;
+﻿using eShopSolution.data.Extentions;
+using eShopSolution.data_.Configuration;
 using eShopSolution.data_.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace eShopSolution.data_.EF
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //configure using fluent API
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
 
@@ -37,6 +39,10 @@ namespace eShopSolution.data_.EF
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
+
+            //Data seeding 
+
+            modelBuilder.Seed();
 
             //modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             //modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
