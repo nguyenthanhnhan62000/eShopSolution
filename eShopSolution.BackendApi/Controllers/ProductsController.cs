@@ -28,9 +28,6 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
 
-     
-
-
         //http://localhost:port/product?pageIndex=1&pageSize=10&categoryId=
 
         [HttpGet("{languageId}")]
