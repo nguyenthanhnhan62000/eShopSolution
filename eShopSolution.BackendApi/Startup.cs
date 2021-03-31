@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eShopSolution.Application_.Catalog.Products;
+using eShopSolution.Application_.Common;
 using eShopSolution.data_.EF;
 using eShopSolution.Utilities.Constants;
 using Microsoft.AspNetCore.Builder;
@@ -31,11 +32,12 @@ namespace eShopSolution.BackendApi
             services.AddDbContext<EShopDBContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 
-
+            services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IPublicProductService, PublicProductService>();
+            services.AddTransient<IManagerproductService, MangerProductService>();
+           
 
-
-            services.AddControllersWithViews();
+        services.AddControllersWithViews();
 
             services.AddSwaggerGen(c =>
             {
@@ -57,6 +59,14 @@ namespace eShopSolution.BackendApi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
+            });
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -64,12 +74,9 @@ namespace eShopSolution.BackendApi
 
             app.UseAuthorization();
 
-            app.UseSwagger();
+           
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
-            });
+
 
             app.UseEndpoints(endpoints =>
             {
