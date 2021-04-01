@@ -62,8 +62,10 @@ namespace eShopSolution.Application_.System.Users
                 claims,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
-                
-            return new JwtSecurityTokenHandler().WriteToken(token);
+
+            var tokenResult = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return tokenResult;
 
         }
 

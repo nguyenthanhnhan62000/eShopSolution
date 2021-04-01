@@ -73,9 +73,6 @@ namespace eShopSolution.Application_.Catalog.Products
             };
         }
 
-        Task<PageResult<ProductViewModel>> IPublicProductService.GetAllByCategoryId(String languageId,GetPublicProductPagingRequest request)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

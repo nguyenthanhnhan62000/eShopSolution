@@ -13,7 +13,7 @@ namespace eShopSolution.data_.Entities
 
         public string LastName { get; set; }
 
-        public DateTime Dob { get; set; }
+        public DateTime Dob { get; set; } 
 
         public List<Cart> Carts { get; set; }
 
