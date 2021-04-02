@@ -4,12 +4,13 @@ using eShopsolution.Viewmodels.Catalog.ProductImages;
 using eShopsolution.Viewmodels.Catalog.Products;
 using eShopsolution.Viewmodels.Comons;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace eShopSolution.Application_.Catalog.Products
 {
-    public interface IManagerproductService
+    public interface IproductService
     {
         Task<int> Create(ProductCreateRequest request);
         Task<int> Update(ProductUpdateRequest request);
@@ -36,6 +37,9 @@ namespace eShopSolution.Application_.Catalog.Products
         Task<List<ProductImageViewModel>> GetListImage(int productId);
 
         Task<ProductImageViewModel> GetImageById(int imageId);
+
+        Task<PageResult<ProductViewModel>> GetAllByCategoryId(String LanguageId, GetPublicProductPagingRequest request);
+
 
 
 

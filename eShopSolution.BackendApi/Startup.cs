@@ -38,6 +38,8 @@ namespace eShopSolution.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+
             services.AddDbContext<EShopDBContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 
@@ -49,8 +51,8 @@ namespace eShopSolution.BackendApi
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IStorageService, FileStorageService>();
-            services.AddTransient<IPublicProductService, PublicProductService>();
-            services.AddTransient<IManagerproductService, MangerProductService>();
+      
+            services.AddTransient<IproductService, ProductService>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
           
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
