@@ -18,12 +18,15 @@ namespace eShopsolution.Viewmodels.System
 
             RuleFor(x => x.Dob).GreaterThan(DateTime.Now.AddYears(-100)).WithMessage("Birthday cannot great than 100 years");
 
-            RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required")
-                .Matches(@" ^ ([\w\.\-] +)@([\w\-] +)((\.(\w){ 2,3})+)$")
-                .WithMessage("Email format not match");
+            //RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required")
+            //    .Matches(@" ^ ([\w\.\-] +)@([\w\-] +)((\.(\w){ 2,3})+)$")
+            //    .WithMessage("Email format not match");
+
+
             RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Phone number is required");
 
             RuleFor(x => x.UserName).NotEmpty().WithMessage("User Name is required");
+
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required")
                 .MinimumLength(6).WithMessage("Password is at least 6 characters");
 

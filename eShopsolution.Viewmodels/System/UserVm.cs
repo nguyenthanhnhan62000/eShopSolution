@@ -20,5 +20,7 @@ namespace eShopsolution.Viewmodels.System
 
         public String Email { get; set; }
 
+        public DateTime Dob { get; set; }
+
     }
 }

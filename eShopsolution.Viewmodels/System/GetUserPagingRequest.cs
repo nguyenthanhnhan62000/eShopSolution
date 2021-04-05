@@ -5,7 +5,7 @@ using System.Text;
 
 namespace eShopsolution.Viewmodels.System
 {
-    public class GetUserPagingRequest : PagingRequestBase
+    public class GetUserPagingRequest :PagingRequestBase
     {
 
         public String Keyword { get; set; }

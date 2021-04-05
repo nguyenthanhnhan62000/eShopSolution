@@ -5,9 +5,11 @@ using System.Text;
 
 namespace eShopsolution.Viewmodels.System
 {
-    public class RegisterRequest
+    public class UserUpdateRequest
     {
-        [Display(Name ="Tên")]
+        public Guid Id { get; set; }
+
+        [Display(Name = "Tên")]
         public string FirstName { get; set; }
 
         [Display(Name = "Họ")]
@@ -17,24 +19,14 @@ namespace eShopsolution.Viewmodels.System
         [DataType(DataType.Date)]
         public DateTime Dob { get; set; }
 
-        
+
         [Display(Name = "Hòm thư")]
         public string Email { get; set; }
 
         [Display(Name = "Số điện thoại")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "Tài khoản")]
-        public String UserName { get; set; }
-
-        [Display(Name = "Mật khẩu")]
-        [DataType(DataType.Password)]
-        public String Password { get; set; }
-
-        [Display(Name = " Xác nhận mật khẩu")]
-        [DataType(DataType.Password)]
-        public String ConfirmPassword { get; set; }
-
+      
 
     }
 }
