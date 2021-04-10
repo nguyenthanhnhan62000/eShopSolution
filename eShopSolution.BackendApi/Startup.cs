@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eShopsolution.Viewmodels.System;
+using eShopSolution.Application.System.Roles;
+using eShopSolution.Application_.Catalog.Categories;
 using eShopSolution.Application_.Catalog.Products;
 using eShopSolution.Application_.Common;
+using eShopSolution.Application_.System.Languages;
+using eShopSolution.Application_.System.Roles;
 using eShopSolution.Application_.System.Users;
 using eShopSolution.data_.EF;
 using eShopSolution.data_.Entities;
@@ -51,17 +55,25 @@ namespace eShopSolution.BackendApi
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IStorageService, FileStorageService>();
-      
+
+            services.AddTransient<ILanguageService, LanguageService>();
+
             services.AddTransient<IproductService, ProductService>();
+            services.AddTransient<IRoleService, RoleService>();
+
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
-          
+            services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+      
+
 
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
 
 
             services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+
+      
 
             services.AddSwaggerGen(c =>
             {
@@ -130,6 +142,18 @@ namespace eShopSolution.BackendApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+
+            app.UseSwagger();
+
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
+              
+            });
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -140,7 +164,7 @@ namespace eShopSolution.BackendApi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-         
+
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
@@ -150,11 +174,7 @@ namespace eShopSolution.BackendApi
 
             app.UseAuthorization();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger eShopSolution V1");
-            });
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

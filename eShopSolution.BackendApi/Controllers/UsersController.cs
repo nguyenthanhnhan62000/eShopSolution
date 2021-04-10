@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eShopsolution.Viewmodels.Comons;
 using eShopsolution.Viewmodels.System;
 using eShopSolution.Application_.System.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -77,6 +78,22 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
 
+        [HttpPut("{id}/roles")]
+        public async Task<IActionResult> RollAssign(Guid id, [FromBody]RoleAssignRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await _userService.RoleAssign(id, request);
+
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+
+
 
         //https:localhost/api/users/paging?pageIndex=1&pageSize=10&keyword=
         [HttpGet("paging")]
@@ -94,5 +111,14 @@ namespace eShopSolution.BackendApi.Controllers
 
             return Ok(user);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+
+            var result = await _userService.Delete(id);
+
+            return Ok(result);
+        }
+
     }
 }

@@ -8,6 +8,10 @@ namespace eShopsolution.Viewmodels.Catalog.Products
     public class GetManagaProductPagingRequest : PagingRequestBase
     {
         public String Keyword { get; set; }
-        public List<int> CategoryIds { get; set; }
+        public int? CategoryId { get; set; }
+
+        public String LanguageId { get; set; }
+
+      
     }
 }

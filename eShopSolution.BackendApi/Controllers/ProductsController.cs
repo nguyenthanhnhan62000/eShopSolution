@@ -30,10 +30,11 @@ namespace eShopSolution.BackendApi.Controllers
 
         //http://localhost:port/product?pageIndex=1&pageSize=10&categoryId=
 
-        [HttpGet("{languageId}")]
-        public async Task<IActionResult> GetAllPaging(String languageId, [FromQuery]GetPublicProductPagingRequest request)
+     
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetManagaProductPagingRequest request)
         {
-            var products = await _ProductService.GetAllByCategoryId(languageId,request);
+            var products = await _ProductService.getAllPaging(request);
             return Ok(products);
         }
 
@@ -50,6 +51,7 @@ namespace eShopSolution.BackendApi.Controllers
 
 
         [HttpPost]
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create([FromForm]ProductCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -158,6 +160,20 @@ namespace eShopSolution.BackendApi.Controllers
 
             if (image == null) return BadRequest("cannot find Product");
             return Ok(image);
+        }
+
+        [HttpPut("{id}/categories")]
+        public async Task<IActionResult> CategoryAssign(int id, [FromBody] CategoryAssignRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await _ProductService.CategoryAssign(id, request);
+
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
     }

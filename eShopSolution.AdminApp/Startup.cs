@@ -28,11 +28,7 @@ namespace eShopSolution.AdminApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
             services.AddHttpClient();
-
-      
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(Options =>
@@ -44,6 +40,7 @@ namespace eShopSolution.AdminApp
             });
 
             services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+            
             services.AddSession(option => 
             {
                 option.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -53,6 +50,10 @@ namespace eShopSolution.AdminApp
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddTransient<IUserApiClient, UserApiClient>();
+            services.AddTransient<IRoleApiClient, RoleApiClient>();
+            services.AddTransient<ILanguageApiClient, LanguageApiClient>();
+            services.AddTransient<IProductApiClient, ProductApiClient>();
+            services.AddTransient<ICategoryApiClient, CategoryApClient>();
 
             IMvcBuilder builder = services.AddRazorPages();
 
