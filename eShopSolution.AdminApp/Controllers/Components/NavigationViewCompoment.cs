@@ -1,5 +1,5 @@
 ﻿using eShopSolution.AdminApp.Models;
-using eShopSolution.AdminApp.Services;
+using eShopSolution.ApiIntegration;
 using eShopSolution.Utilities.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +18,6 @@ namespace eShopSolution.AdminApp.Controllers.Components
 
             _LanguageApiClient = LanguageApiClient;
         }
-
-        
 
         public async Task<IViewComponentResult> InvokeAsync()
         {

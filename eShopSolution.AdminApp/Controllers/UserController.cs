@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eShopsolution.Viewmodels.Comons;
 using eShopsolution.Viewmodels.System;
-using eShopSolution.AdminApp.Services;
+using eShopSolution.ApiIntegration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;

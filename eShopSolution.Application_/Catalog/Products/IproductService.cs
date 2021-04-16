@@ -1,6 +1,4 @@
-﻿
-using eShopsolution.Viewmodels.Catalog;
-using eShopsolution.Viewmodels.Catalog.ProductImages;
+﻿using eShopsolution.Viewmodels.Catalog.ProductImages;
 using eShopsolution.Viewmodels.Catalog.Products;
 using eShopsolution.Viewmodels.Comons;
 using Microsoft.AspNetCore.Http;
@@ -42,6 +40,9 @@ namespace eShopSolution.Application_.Catalog.Products
 
         Task<ApiResult<bool>> CategoryAssign(int id, CategoryAssignRequest request);
 
+        Task<List<ProductVm>> GetFeaturedProducts(String LanguageId, int take);
+
+        Task<List<ProductVm>> GetLatestProducts(String LanguageId, int take);
 
 
     }

@@ -1,6 +1,6 @@
 ﻿using eShopsolution.Viewmodels.Comons;
 using eShopsolution.Viewmodels.System;
-using eShopsolution.Viewmodels.System.Languages;
+using eShopsolution.Viewmodels.Untilities.Slides;
 using eShopSolution.data_.EF;
 using eShopSolution.data_.Entities;
 using eShopSolution.Utilities.Exceptions;
@@ -32,15 +32,15 @@ namespace eShopSolution.Application_.System.Languages
             _context = context; 
         }
 
-        public async Task<ApiResult<List<LanguageVm>>> GetAll()
+        public async Task<ApiResult<List<SlideVm>>> GetAll()
         {
-            var languages=  await _context.Languages.Select(x => new LanguageVm()
+            var languages=  await _context.Languages.Select(x => new SlideVm()
             {
-                Id= x.Id,
+                Id= int.Parse(x.Id),
                 Name= x.Name
             }).ToListAsync();
 
-            return new ApiSuccessResult<List<LanguageVm>>(languages);
+            return new ApiSuccessResult<List<SlideVm>>(languages);
         }
     }
 }

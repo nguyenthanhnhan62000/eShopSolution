@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.AdminApp.Services
+namespace eShopSolution.ApiIntegration
 {
     public interface IUserApiClient
     {
-        Task<ApiResult<String>> Authenticate(LoginRequest request);
+        Task<ApiResult<string>> Authenticate(LoginRequest request);
 
         Task<ApiResult<PageResult<UserVm>>> GetUserPaging(GetUserPagingRequest request);
 

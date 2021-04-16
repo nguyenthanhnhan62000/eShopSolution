@@ -1,10 +1,14 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    var culture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Bootshop online Shopping cart</title>
+    <title>@ViewData["Title"]</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="@ViewData["Description"] ">
     <meta name="author" content="">
     <!--Less styles -->
     <!-- Other Less css file //different less files has different color scheam
@@ -31,19 +35,35 @@
     <style type="text/css" id="enject"></style>
 </head>
 <body>
+    <input type="hidden" id="hidCulture" value="@culture"/>
     <div id="header">
         <div class="container">
             <div id="welcomeLine" class="row">
-                <div class="span6">Welcome!<strong> User</strong></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="span6">Welcome!<strong> @User.Identity.Name</strong></div>
+                }
+          
                 <div class="span6">
                     <div class="pull-right">
-                        <a href="product_summary.html"><span class="">Fr</span></a>
-                        <a href="product_summary.html"><span class="">Es</span></a>
-                        <span class="btn btn-mini">En</span>
-                        <a href="product_summary.html"><span>&pound;</span></a>
-                        <span class="btn btn-mini">$155.00</span>
-                        <a href="product_summary.html"><span class="">$</span></a>
-                        <a href="product_summary.html"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your cart </span> </a>
+
+
+                        @*<a  href="/en/home/SetCultureCookie?cltr=en&returnUrl=/en"><span class="" localize-content>English</span></a>
+                <a  href="/vi/home/SetCultureCookie?cltr=vi&returnUrl=/vi"><span class="" localize-content>Vietnamese</span></a>*@
+
+
+                        <language-nav language-label="NativeName"
+                                      cookie-handler-url="@(Url.Action("SetCultureCookie", "Home", new { area= "", cltr="{0}", returnUrl="{1}" }))">
+
+                        </language-nav>
+
+
+                        <a href="product_summary.html">
+                            <span class="btn btn-mini btn-primary">
+                                <i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your cart
+                            </span>
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -69,34 +89,56 @@
                         <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
                     </form>
                     <ul id="topMenu" class="nav pull-right">
-                        <li class=""><a href="special_offer.html">Specials Offer</a></li>
-                        <li class=""><a href="normal.html">Delivery</a></li>
-                        <li class=""><a href="contact.html">Contact</a></li>
+
+                        <li class=""><a asp-route-culture="@culture" localize-content>Specials Offer</a></li>
+
+                        <li class=""><a asp-route-culture="@culture" localize-content>Delivery</a></li>
+
+                        <li class=""><a asp-route-culture="@culture" localize-content>Contact</a></li>
                         <li class="">
-                            <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
-                            <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3>Login Block</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal loginFrm">
-                                        <div class="control-group">
-                                            <input type="text" id="inputEmail" placeholder="Email">
-                                        </div>
-                                        <div class="control-group">
-                                            <input type="password" id="inputPassword" placeholder="Password">
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="checkbox">
-                                                <input type="checkbox"> Remember me
-                                            </label>
-                                        </div>
-                                    </form>
-                                    <button type="submit" class="btn btn-success">Sign in</button>
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                </div>
-                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                            <form action="/@culture/Account/Logout" method="post">
+                                <button type="submit" style="padding-right:0; margin-top:10px ;margin-bottom:0px;background:transparent;border:none;">
+
+                                    <span class="btn btn-large btn-success"><localize>Logout</localize></span>
+                                </button>
+
+                            </form>
+                            }
+                            else
+                            {
+                                <a href="/@culture/Account/Login" style="padding-right:0">
+
+                                    <span class="btn btn-large btn-success"><localize>Login</localize></span>
+                                </a>
+                            }
+
+
+
+                            @*<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Login Block</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal loginFrm">
+                    <div class="control-group">
+                        <input type="text" id="inputEmail" placeholder="Email">
+                    </div>
+                    <div class="control-group">
+                        <input type="password" id="inputPassword" placeholder="Password">
+                    </div>
+                    <div class="control-group">
+                        <label class="checkbox">
+                            <input type="checkbox"> Remember me
+                        </label>
+                    </div>
+                </form>
+                <button type="submit" class="btn btn-success">Sign in</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>*@
                         </li>
                     </ul>
                 </div>
@@ -104,75 +146,13 @@
         </div>
     </div>
     <!-- Header End====================================================================== -->
-    @RenderSection("slider",required:false)
- 
+    @RenderSection("slider", required: false)
+
     <div id="mainBody">
         <div class="container">
             <div class="row">
                 <!-- Sidebar ================================================== -->
-                <div id="sidebar" class="span3">
-                    <div class="well well-small"><a id="myCart" href="product_summary.html"><img src="/themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
-                    <ul id="sideManu" class="nav nav-tabs nav-stacked">
-                        <li class="subMenu open">
-                            <a> ELECTRONICS [230]</a>
-                            <ul>
-                                <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Computers, Tablets & laptop (30)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Mobile Phone (80)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Sound & Vision (15)</a></li>
-                            </ul>
-                        </li>
-                        <li class="subMenu">
-                            <a> CLOTHES [840] </a>
-                            <ul style="display:none">
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing (45)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Shoes (8)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Women's Hand Bags (5)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Men's Clothings  (45)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Men's Shoes (6)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Kids Clothing (5)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Kids Shoes (3)</a></li>
-                            </ul>
-                        </li>
-                        <li class="subMenu">
-                            <a>FOOD AND BEVERAGES [1000]</a>
-                            <ul style="display:none">
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Angoves  (35)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Bouchard Aine & Fils (8)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>French Rabbit (5)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Louis Bernard  (45)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>BIB Wine (Bag in Box) (8)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Other Liquors & Wine (5)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Garden (3)</a></li>
-                                <li><a href="products.html"><i class="icon-chevron-right"></i>Khao Shong (11)</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="products.html">HEALTH & BEAUTY [18]</a></li>
-                        <li><a href="products.html">SPORTS & LEISURE [58]</a></li>
-                        <li><a href="products.html">BOOKS & ENTERTAINMENTS [14]</a></li>
-                    </ul>
-                    <br />
-                    <div class="thumbnail">
-                        <img src="/themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera" />
-                        <div class="caption">
-                            <h5>Panasonic</h5>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-                        </div>
-                    </div><br />
-                    <div class="thumbnail">
-                        <img src="/themes/images/products/kindle.png" title="Bootshop New Kindel" alt="Bootshop Kindel">
-                        <div class="caption">
-                            <h5>Kindle</h5>
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-                        </div>
-                    </div><br />
-                    <div class="thumbnail">
-                        <img src="/themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
-                        <div class="caption">
-                            <h5>Payment Methods</h5>
-                        </div>
-                    </div>
-                </div>
+                @await Component.InvokeAsync("SideBar")
                 <!-- Sidebar end=============================================== -->
                 <div class="span9">
                     @RenderBody()
@@ -226,6 +206,7 @@
 
     <script src="/themes/js/bootshop.js"></script>
     <script src="/themes/js/jquery.lightbox-0.5.js"></script>
+    <script src="/js/site.js"></script>
 
     <!-- /themes switcher section ============================================================================================= -->
     <div id="secectionBox">

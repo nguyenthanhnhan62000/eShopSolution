@@ -1,4 +1,4 @@
-﻿using eShopsolution.Viewmodels.System.Languages;
+﻿using eShopsolution.Viewmodels.Untilities.Slides;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,10 @@ namespace eShopSolution.AdminApp.Models
 {
     public class NavigationViewModel
     {
-        public List<LanguageVm> Languages { get; set; }
+        public List<SlideVm> Languages { get; set; }
 
         public String CurrentLanguageId { get; set; }
+
+        public String ReturnUrl { get; set; }
     }
 }

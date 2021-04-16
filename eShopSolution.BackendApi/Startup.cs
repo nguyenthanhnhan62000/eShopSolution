@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eShopsolution.Viewmodels.System;
-using eShopSolution.Application.System.Roles;
 using eShopSolution.Application_.Catalog.Categories;
 using eShopSolution.Application_.Catalog.Products;
 using eShopSolution.Application_.Common;
 using eShopSolution.Application_.System.Languages;
-using eShopSolution.Application_.System.Roles;
 using eShopSolution.Application_.System.Users;
+using eShopSolution.Application_.Untilities.Slides;
 using eShopSolution.data_.EF;
 using eShopSolution.data_.Entities;
 using eShopSolution.Utilities.Constants;
@@ -42,7 +41,10 @@ namespace eShopSolution.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddHttpClient();
+
+            services.AddRouting();
 
             services.AddDbContext<EShopDBContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
@@ -53,18 +55,21 @@ namespace eShopSolution.BackendApi
               .AddDefaultTokenProviders();
 
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IStorageService, FileStorageService>();
 
             services.AddTransient<ILanguageService, LanguageService>();
 
             services.AddTransient<IproductService, ProductService>();
-            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<ISlideService, SlideService>();
 
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
-      
+        
+
+
 
 
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
@@ -174,7 +179,7 @@ namespace eShopSolution.BackendApi
 
             app.UseAuthorization();
 
-         
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

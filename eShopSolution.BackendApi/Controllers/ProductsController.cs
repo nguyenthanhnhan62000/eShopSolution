@@ -14,7 +14,7 @@ namespace eShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+  
     public class ProductsController : ControllerBase
     {
 
@@ -49,9 +49,30 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(product);
         }
 
+        [HttpGet("featured/{languageId}/{take}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetFeaturedProducts(string languageId, int take)
+        {
+            var products = await _ProductService.GetFeaturedProducts(languageId, take);
+
+            return Ok(products);
+        }
+
+        [HttpGet("latest/{languageId}/{take}")]
+
+        [AllowAnonymous]
+        public async Task<IActionResult> GetLatestProducts(int take, String languageId)
+        {
+            var products = await _ProductService.GetLatestProducts(languageId, take);
+
+            return Ok(products);
+        }
+
+
 
         [HttpPost]
         [Consumes("multipart/form-data")]
+        [Authorize]
         public async Task<IActionResult> Create([FromForm]ProductCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -68,13 +89,17 @@ namespace eShopSolution.BackendApi.Controllers
             return CreatedAtAction(nameof(GetById),new { id =productId },product) ;
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromForm] ProductUpdateRequest request)
+        [HttpPut("{productId}")]
+        [Consumes("multipart/form-data")]
+        [Authorize]
+        public async Task<IActionResult> Update([FromRoute]int productId, [FromForm] ProductUpdateRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            request.Id = productId;
             var affectedResult = await _ProductService.Update(request);
             if (affectedResult == 0)
                 return BadRequest();
@@ -83,6 +108,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPatch("{ProductId}/{newPrice}")]
+        [Authorize]
         public async Task<IActionResult> UpdatePrice( int ProductId,decimal newPrice)
         {
             var isSuccessful = await _ProductService.UpdatePrice(ProductId,newPrice);
@@ -94,6 +120,7 @@ namespace eShopSolution.BackendApi.Controllers
 
 
         [HttpDelete("{ProductId}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int ProductId)
         {
             var affectedResult = await _ProductService.Delete(ProductId);
@@ -106,6 +133,7 @@ namespace eShopSolution.BackendApi.Controllers
         //image 
 
         [HttpPost("{productId}/images")]
+        [Authorize]
         public async Task<IActionResult> CreateImage(int productId,[FromForm] ProductImageCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -123,6 +151,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut("{productId}/images/{imageId}")]
+        [Authorize]
         public async Task<IActionResult> UpdateImage(int imageId, [FromForm]ProductImageUpdateRequest request)
         {
             if (!ModelState.IsValid)
@@ -138,6 +167,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpDelete("{productId}/images/{imageId}")]
+        [Authorize]
         public async Task<IActionResult> RemoveImage(int imageId)
         {
             if (!ModelState.IsValid)
@@ -163,6 +193,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut("{id}/categories")]
+        [Authorize]
         public async Task<IActionResult> CategoryAssign(int id, [FromBody] CategoryAssignRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

@@ -159,19 +159,20 @@ namespace eShopSolution.Application_.System.Users
 
         public async Task<ApiResult< bool>> Register(RegisterRequest request)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
-            if(user != null)
-            {
+            //var user = await _userManager.FindByNameAsync(request.UserName);
+            //if(user != null)
+            //{
                
-                return new ApiErrorResult<bool>("User name đã tồn tại");
-            }
-            if (await _userManager.FindByEmailAsync(request.Email) != null)
-            {
-                return new ApiErrorResult<bool>("Email đã tồn tại");
-            }
+            //    return new ApiErrorResult<bool>("User name đã tồn tại");
+            //}
+
+            //if (await _userManager.FindByEmailAsync(request.Email) != null)
+            //{
+            //    return new ApiErrorResult<bool>("Email đã tồn tại");
+            //}
 
 
-             user = new AppUser()
+             var user = new AppUser()
             {
                 Dob = request.Dob,
                 Email = request.Email,
@@ -186,6 +187,7 @@ namespace eShopSolution.Application_.System.Users
             {
                 return new ApiSuccessResult<bool>();
             }
+
             return  new ApiErrorResult<bool>("Đăng kí không thành công"); 
 
         }
